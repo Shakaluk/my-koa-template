@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run test-unit && npm run test-bdd",
+    "test-unit": "SET NODE_ENV=test && mocha --require co-mocha src/**/*.spec.js",
+    "// for unix": "NODE_ENV=test mocha --require co-mocha src/**/*.spec.js",
+    "test-bdd": "SET NODE_ENV=test && mocha --require co-mocha test/**/*.test.js",
+    "/// for unix": "NODE_ENV=test mocha --require co-mocha test/**/*.test.js",
     "lint": "eslint ."
   },
   "author": "Shak",
@@ -15,14 +19,21 @@
   ],
   "dependencies": {
     "co": "^4.6.0",
+    "joi": "^10.2.1",
     "koa": "^1.2.4",
     "koa-bodyparser": "^2.3.0",
     "koa-router": "^5.4.0"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "co-mocha": "^1.2.0",
     "eslint": "^3.15.0",
     "eslint-config-standard": "^6.2.1",
     "eslint-plugin-promise": "^3.4.0",
-    "eslint-plugin-standard": "^2.0.1"
+    "eslint-plugin-standard": "^2.0.1",
+    "faker": "^3.1.0",
+    "koa-request": "^1.0.0",
+    "mocha": "^3.2.0",
+    "sinon": "^1.17.7"
   }
 }

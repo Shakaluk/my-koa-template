@@ -12,8 +12,8 @@ module.exports = (function () {
     // setup initial data
     co(function *() {
         yield init();
-    }).catch(error => {
-        console.error(error);
+    }).catch(err => {
+        console.log(err);
     });
 
     console.info('Master cluster setting up ' + numWorkers + ' workers...');

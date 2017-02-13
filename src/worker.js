@@ -11,7 +11,7 @@ const router = require('./features');
 app.use(bodyParser({
     jsonLimit: '10mb',
     onerror: function (err, ctx) {
-        console.error(err);
+        console.log(err);
         ctx.throw('body parse error', 422);
     }
 }));

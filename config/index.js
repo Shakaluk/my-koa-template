@@ -1,8 +1,7 @@
 'use strict';
 
-const environment = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV ? process.env.NODE_ENV.trim() : process.env.NODE_ENV = 'development';
 
-const env = require('./' + environment);
-const constants = require('./constants');
+const config = require('./' + env);
 
-module.exports = Object.assign({}, env, constants);
+module.exports = config;
