@@ -1,17 +1,18 @@
 'use strict';
 
 before(function () {
-    console.log('before');
+    require('../src/worker');
+    // console.log('before');
 });
 
 after(function () {
-    console.log('after');
+    // console.log('after');
 });
 
 beforeEach(function () {
-    console.log('before each');
+    // console.log('before each');
 });
 
 afterEach(function () {
-    console.log('after each');
+    // console.log('after each');
 });

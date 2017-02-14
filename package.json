@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/server.js",
-    "test": "npm run test-unit && npm run test-bdd",
+    "test": "npm run test-unit && npm run test-behavior",
     "test-unit": "SET NODE_ENV=test && mocha --require co-mocha src/**/*.spec.js",
     "// for unix": "NODE_ENV=test mocha --require co-mocha src/**/*.spec.js",
-    "test-bdd": "SET NODE_ENV=test && mocha --require co-mocha test/**/*.test.js",
+    "test-behavior": "SET NODE_ENV=test && mocha --require co-mocha test/**/*.test.js",
     "/// for unix": "NODE_ENV=test mocha --require co-mocha test/**/*.test.js",
     "lint": "eslint ."
   },
