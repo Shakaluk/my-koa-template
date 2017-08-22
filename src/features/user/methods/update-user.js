@@ -5,25 +5,25 @@ const Joi = require('joi');
 const User = require('../model.js');
 const schema = require('../validate-schema');
 
-function *updateUser () {
+async function updateUser () {
     const id = this.params.id;
     const body = this.request.body;
     let data;
 
     try {
-        data = yield Joi.attempt(body, schema.update);
+        data = await Joi.attempt(body, schema.update);
     } catch (err) {
         this.app && this.app.env !== 'test' ? console.log(err) : null;
         this.status = 400;
         this.body = {
             message: 'Validate user error',
-            err: err.details
+            err    : err.details
         };
-        return;
+        return err;
     }
 
     try {
-        this.body = yield User.update(id, data);
+        this.body = await User.update(id, data);
     } catch (err) {
         console.log(err);
         this.status = 500;

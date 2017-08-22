@@ -2,15 +2,21 @@
 
 const koa = require('koa');
 const bodyParser = require('koa-bodyparser');
+const mongoose = require('mongoose');
+
 const app = koa();
 
-require('../config');
-
 const router = require('./features');
+const mongoUri = require('../config').mongoUri;
+
+mongoose.Promise = global.Promise;
+mongoose.connect(mongoUri, {
+    useMongoClient: true
+});
 
 app.use(bodyParser({
     jsonLimit: '10mb',
-    onerror: function (err, ctx) {
+    onerror  : function (err, ctx) {
         console.log(err);
         ctx.throw('body parse error', 422);
     }

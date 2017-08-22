@@ -1,5 +1,6 @@
 'use strict';
 
+const expect = require('chai').expect;
 const sinon = require('sinon');
 
 const User = require('../model');
@@ -14,14 +15,18 @@ describe('get user method', function () {
         };
     });
 
-    it('should get user', function *() {
+    it('should get user', async function () {
         const stub = this.sandbox.stub(User, 'get').returnsWithResolve({});
 
         const ctx = {
             params: defaultUser
         };
 
-        yield getUser.call(ctx);
+        try {
+            await getUser.call(ctx);
+        } catch (err) {
+            expect(err).to.not.exist;
+        }
 
         sinon.assert.calledOnce(stub);
     });

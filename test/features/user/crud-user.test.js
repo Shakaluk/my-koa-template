@@ -12,7 +12,7 @@ describe('C.R.U.D user', function () {
 
     before(function () {
         defaultUser = {
-            name: Faker.name.firstName() + ' ' + Faker.name.lastName(),
+            name : Faker.name.firstName() + ' ' + Faker.name.lastName(),
             email: Faker.internet.email()
         };
 
@@ -40,8 +40,8 @@ describe('C.R.U.D user', function () {
         it('should create user', function *() {
             let options = {
                 method: 'POST',
-                url: url,
-                form: defaultUser
+                url   : url,
+                form  : defaultUser
             };
             let response = yield request(options);
 
@@ -58,8 +58,8 @@ describe('C.R.U.D user', function () {
         it('should update user', function *() {
             let options = {
                 method: 'PATCH',
-                url: url + '/' + userId,
-                form: updateParams
+                url   : url + '/' + userId,
+                form  : updateParams
             };
             let response = yield request(options);
 
@@ -88,7 +88,7 @@ describe('C.R.U.D user', function () {
         it('should delete user', function *() {
             let options = {
                 method: 'DELETE',
-                url: url + '/' + userId
+                url   : url + '/' + userId
             };
             let response = yield request(options);
 

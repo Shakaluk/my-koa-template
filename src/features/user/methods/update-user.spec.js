@@ -1,7 +1,8 @@
 'use strict';
 
-const Faker = require('faker');
+const expect = require('chai').expect;
 const sinon = require('sinon');
+const Faker = require('faker');
 
 const User = require('../model');
 const updateUser = require('./update-user');
@@ -13,19 +14,19 @@ describe('update user method', function () {
 
     before(function () {
         defaultUser = {
-            name: Faker.name.firstName() + ' ' + Faker.name.lastName(),
+            name : Faker.name.firstName() + ' ' + Faker.name.lastName(),
             email: Faker.internet.email()
         };
 
         notValidUser = {
-            name: Faker.name.firstName() + ' ' + Faker.name.lastName(),
+            name : Faker.name.firstName() + ' ' + Faker.name.lastName(),
             email: Faker.name.firstName()
         };
 
         userId = '4238';
     });
 
-    it('should update user', function *() {
+    it('should update user', async function () {
         const stub = this.sandbox.stub(User, 'update').returnsWithResolve({});
 
         const ctx = {
@@ -37,12 +38,16 @@ describe('update user method', function () {
             }
         };
 
-        yield updateUser.call(ctx);
+        try {
+            await updateUser.call(ctx);
+        } catch (err) {
+            expect(err).to.not.exist;
+        }
 
         sinon.assert.calledOnce(stub);
     });
 
-    it('should not update user', function *() {
+    it('should not update user', async function () {
         const spy = this.sandbox.spy(User, 'update');
 
         const ctx = {
@@ -54,7 +59,11 @@ describe('update user method', function () {
             }
         };
 
-        yield updateUser.call(ctx);
+        try {
+            await updateUser.call(ctx);
+        } catch (err) {
+            expect(err).to.not.exist;
+        }
 
         sinon.assert.notCalled(spy);
     });

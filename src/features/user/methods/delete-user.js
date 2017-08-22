@@ -2,11 +2,11 @@
 
 const User = require('../model.js');
 
-function *deleteUser () {
+async function deleteUser () {
     const id = this.params.id;
 
     try {
-        this.body = yield User.delete(id);
+        this.body = await User.delete(id);
     } catch (err) {
         console.log(err);
         this.status = 500;

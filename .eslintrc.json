@@ -25,6 +25,12 @@
         "eol-last": [
             "error",
             "never"
-        ]
+        ],
+        "key-spacing": ["error", {
+            "align": {
+                "afterColon": true,
+                "on": "colon"
+            }
+        }]
     }
 }

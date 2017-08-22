@@ -1,8 +1,15 @@
 'use strict';
 
 const sinon = require('sinon');
+const mongoose = require('mongoose');
+
+const mongoUri = require('../config').mongoUri;
 
 before(function () {
+    mongoose.connect(mongoUri, {
+        useMongoClient: true
+    });
+
     sinon.stub.returnsWithResolve = function (data) {
         return this.returns(Promise.resolve(data));
     };

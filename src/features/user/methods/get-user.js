@@ -2,11 +2,11 @@
 
 const User = require('../model.js');
 
-function *getUser () {
+async function getUser () {
     const id = this.params.id;
 
     try {
-        this.body = yield User.get(id);
+        this.body = await User.get(id);
     } catch (err) {
         console.log(err);
         this.status = 500;

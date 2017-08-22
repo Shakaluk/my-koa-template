@@ -1,20 +1,21 @@
 'use strict';
 
-const co = require('co');
 const cluster = require('cluster');
 
 const config = require('../config');
-
 const init = require('./init');
+
 const numWorkers = config.numWorkers;
 
 module.exports = (function () {
     // setup initial data
-    co(function *() {
-        yield init();
-    }).catch(err => {
-        console.log(err);
-    });
+    (async function () {
+        try {
+            await init();
+        } catch (err) {
+            console.log(err);
+        }
+    })();
 
     console.info('Master cluster setting up ' + numWorkers + ' workers...');
 

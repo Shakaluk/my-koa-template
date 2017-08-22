@@ -1,5 +1,6 @@
 'use strict';
 
+const expect = require('chai').expect;
 const sinon = require('sinon');
 
 const User = require('../model');
@@ -14,14 +15,18 @@ describe('delete user method', function () {
         };
     });
 
-    it('should delete user', function *() {
+    it('should delete user', async function () {
         const stub = this.sandbox.stub(User, 'delete').returnsWithResolve({});
 
         const ctx = {
             params: defaultUser
         };
 
-        yield deleteUser.call(ctx);
+        try {
+            await deleteUser.call(ctx);
+        } catch (err) {
+            expect(err).to.not.exist;
+        }
 
         sinon.assert.calledOnce(stub);
     });

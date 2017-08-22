@@ -2,9 +2,9 @@
 
 const User = require('../model.js');
 
-function *getUsers () {
+async function getUsers () {
     try {
-        this.body = yield User.getAll();
+        this.body = await User.getAll();
     } catch (err) {
         console.log(err);
         this.status = 500;
