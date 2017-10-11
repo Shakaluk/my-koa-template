@@ -66,10 +66,15 @@ describe('User model', function () {
     });
 
     it('should return all users', async function () {
+        const options = {
+            order: 1,
+            skip : 0,
+            limit: 15
+        };
         let users;
 
         try {
-            users = await User.getAll();
+            users = await User.getAll(options);
         } catch (err) {
             expect(err).to.not.exist;
         }

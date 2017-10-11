@@ -11,7 +11,7 @@ describe('delete user method', function () {
 
     before(function () {
         defaultUser = {
-            id: '4238'
+            id: '595b6a53f7909c41f0e2897b'
         };
     });
 
@@ -23,7 +23,7 @@ describe('delete user method', function () {
         };
 
         try {
-            await deleteUser.call(ctx);
+            await deleteUser(ctx);
         } catch (err) {
             expect(err).to.not.exist;
         }

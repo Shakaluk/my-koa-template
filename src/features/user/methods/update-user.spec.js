@@ -23,7 +23,7 @@ describe('update user method', function () {
             email: Faker.name.firstName()
         };
 
-        userId = '4238';
+        userId = '595b6a53f7909c41f0e2897b';
     });
 
     it('should update user', async function () {
@@ -39,7 +39,7 @@ describe('update user method', function () {
         };
 
         try {
-            await updateUser.call(ctx);
+            await updateUser(ctx);
         } catch (err) {
             expect(err).to.not.exist;
         }
@@ -60,7 +60,7 @@ describe('update user method', function () {
         };
 
         try {
-            await updateUser.call(ctx);
+            await updateUser(ctx);
         } catch (err) {
             expect(err).to.not.exist;
         }

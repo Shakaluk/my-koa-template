@@ -11,7 +11,10 @@ const user = {
     defaultPassword: '12345678'
 };
 
+const cryptoSecret = '1hPfST35lvX4GvcDWbp3BormE1vFyoc9';
+
 module.exports = {
+    cryptoSecret,
     numWorkers,
     mongoUri,
     user

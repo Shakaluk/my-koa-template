@@ -1,0 +1,15 @@
+{
+  "name": "My koa template",
+  "description": "User registration system",
+  "title": "API",
+  "version": "1.0.0",
+  "sampleUrl": "http://localhost:3000",
+  "header": {
+    "title": "General",
+    "filename": "header.md"
+  },
+  "template": {
+  	"withCompare": true,
+  	"withGenerator": true
+  }
+}

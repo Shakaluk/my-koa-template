@@ -33,7 +33,7 @@ describe('create user method', function () {
         };
 
         try {
-            await createUser.call(ctx);
+            await createUser(ctx);
         } catch (err) {
             expect(err).to.not.exist;
         }
@@ -51,7 +51,7 @@ describe('create user method', function () {
         };
 
         try {
-            await createUser.call(ctx);
+            await createUser(ctx);
         } catch (err) {
             expect(err).to.not.exist;
         }

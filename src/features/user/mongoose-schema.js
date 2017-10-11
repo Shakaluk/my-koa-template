@@ -27,13 +27,15 @@ const Schema = new mongoose.Schema({
     },
 
     role: {
-        type: String,
-        enum: [CONSTANTS.USER_ROLES.ADMIN, CONSTANTS.USER_ROLES.USER]
+        type   : String,
+        enum   : [CONSTANTS.USER_ROLES.ADMIN, CONSTANTS.USER_ROLES.USER],
+        default: CONSTANTS.USER_ROLES.USER
     },
 
     status: {
-        type: String,
-        enum: [CONSTANTS.STATUS.ACTIVE, CONSTANTS.STATUS.DISABLED]
+        type   : String,
+        enum   : [CONSTANTS.STATUS.ACTIVE, CONSTANTS.STATUS.DISABLED],
+        default: CONSTANTS.STATUS.ACTIVE
     },
 
     createdAt: {

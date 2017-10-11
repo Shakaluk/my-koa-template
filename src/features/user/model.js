@@ -13,8 +13,20 @@ const User = {
         return new Model(data).save();
     },
 
-    getAll () {
-        return Model.find();
+    count () {
+        return Model.count();
+    },
+
+    getAll (options) {
+        let sort = {};
+
+        if (options.sort) {
+            sort[options.sort] = options.order;
+        } else {
+            sort.createdAt = options.order;
+        }
+
+        return Model.find().sort(sort).skip(options.skip).limit(options.limit);
     },
 
     get (id) {

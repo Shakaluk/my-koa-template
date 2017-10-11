@@ -10,7 +10,8 @@
     "// for unix": "NODE_ENV=test mocha src/**/*.spec.js",
     "test-integration": "SET NODE_ENV=test && mocha test/**/*.test.js",
     "/// for unix": "NODE_ENV=test mocha test/**/*.test.js",
-    "lint": "eslint ."
+    "lint": "eslint src",
+    "apidoc": "apidoc -i src -o public/apidoc"
   },
   "author": "Shak",
   "license": "ISC",
@@ -18,22 +19,25 @@
     "lint"
   ],
   "dependencies": {
-    "bluebird": "^3.5.0",
-    "joi": "^10.2.1",
-    "koa": "^1.2.4",
-    "koa-bodyparser": "^2.3.0",
-    "koa-router": "^5.4.0",
-    "mongoose": "^4.11.1"
+    "joi": "^10.6.0",
+    "joi-objectid": "^2.0.0",
+    "kcors": "^2.2.1",
+    "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.2.1",
+    "koa-static": "^4.0.1",
+    "mongoose": "^4.12.0"
   },
   "devDependencies": {
+    "apidoc": "^0.17.6",
     "chai": "^3.5.0",
-    "eslint": "^3.15.0",
+    "eslint": "^3.19.0",
     "eslint-config-standard": "^6.2.1",
-    "eslint-plugin-promise": "^3.4.0",
-    "eslint-plugin-standard": "^2.0.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^2.3.1",
     "faker": "^3.1.0",
     "koa-request": "^1.0.0",
-    "mocha": "^3.4.2",
+    "mocha": "^3.5.3",
     "sinon": "^1.17.7"
   },
   "engines": {

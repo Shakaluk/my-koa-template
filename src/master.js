@@ -24,7 +24,7 @@ module.exports = (function () {
     }
 
     cluster.on('online', function (worker) {
-        console.info('Worker ' + worker.process.pid + ' is online');
+        console.info('Worker ' + worker.process.pid + ' is online. Time: ' + (new Date()).toUTCString());
     });
 
     cluster.on('exit', function (worker, code, signal) {

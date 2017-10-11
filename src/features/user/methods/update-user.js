@@ -5,17 +5,52 @@ const Joi = require('joi');
 const User = require('../model.js');
 const schema = require('../validate-schema');
 
-async function updateUser () {
-    const id = this.params.id;
-    const body = this.request.body;
+/**
+ * @apiDefine apiSuccessExample_update_user
+ * @apiSuccessExample {json} Success-Response:
+ *    HTTP/1.1 200 OK
+ *    {
+ *      "_id"      : "595b6a53f7909c41f0e2897b",
+ *      "email"    : "some@user.com",
+ *      "name"     : "Some advanced user",
+ *      "role"     : "user",
+ *      "status"   : "active",
+ *      "updatedAt": "2017-07-04T10:13:39.797Z",
+ *      "createdAt": "2017-07-04T10:13:39.797Z"
+ *    }
+ */
+
+/**
+ * @api {patch} /user/:id Update User
+ * @apiName updateUser
+ * @apiGroup User
+ * @apiVersion 1.0.0
+ * @apiDescription Update user
+ *
+ * @apiParam {String} [name] User <code>name</code>.
+ * @apiParam {String} [email] User <code>email</code>.
+ *
+ * @apiParamExample {json} Request-Example:
+ *    {
+ *      "name": "Some advanced user"
+ *    }
+ *
+ * @apiExample {curl} Example usage:
+ *     curl -i http://www.example.com/user/:id
+ *
+ * @apiUse apiSuccessExample_update_user
+ */
+
+async function updateUser (ctx, next) {
+    const id = ctx.params.id;
+    const body = ctx.request.body;
     let data;
 
     try {
-        data = await Joi.attempt(body, schema.update);
+        await Joi.attempt(id, schema.id);
     } catch (err) {
-        this.app && this.app.env !== 'test' ? console.log(err) : null;
-        this.status = 400;
-        this.body = {
+        ctx.status = 400;
+        ctx.body = {
             message: 'Validate user error',
             err    : err.details
         };
@@ -23,11 +58,22 @@ async function updateUser () {
     }
 
     try {
-        this.body = await User.update(id, data);
+        data = await Joi.attempt(body, schema.update);
+    } catch (err) {
+        ctx.status = 400;
+        ctx.body = {
+            message: 'Validate user error',
+            err    : err.details
+        };
+        return err;
+    }
+
+    try {
+        ctx.body = await User.update(id, data);
     } catch (err) {
         console.log(err);
-        this.status = 500;
-        this.body = {message: 'Update user error'};
+        ctx.status = 500;
+        ctx.body = {message: 'Update user error'};
     }
 }
 

@@ -11,11 +11,11 @@ describe('get users method', function () {
         const stub = this.sandbox.stub(User, 'getAll').returnsWithResolve({});
 
         const ctx = {
-            body: null
+            request: {}
         };
 
         try {
-            await getUsers.call(ctx);
+            await getUsers(ctx);
         } catch (err) {
             expect(err).to.not.exist;
         }
