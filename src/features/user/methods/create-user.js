@@ -67,15 +67,11 @@ async function createUser (ctx, next) {
     } catch (err) {
         if (err.code === 11000) { // duplicate email
             ctx.status = 409;
-            ctx.body = {
-                message: 'Email already exists'
-            };
+            ctx.body = {message: 'Email already exists'};
         } else {
             console.log(err);
             ctx.status = 500;
-            ctx.body = {
-                message: 'Create user error'
-            };
+            ctx.body = {message: 'Create user error'};
         }
     }
 }

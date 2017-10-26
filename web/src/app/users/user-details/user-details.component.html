@@ -1,0 +1,13 @@
+<mat-card>
+  <mat-card-title>User preview</mat-card-title>
+  <mat-progress-bar mode="indeterminate" *ngIf="!user"></mat-progress-bar>
+  <mat-card-content *ngIf="user">
+    <button mat-raised-button color="primary" (click)="removeUser()">Remove</button>
+    <a mat-raised-button color="primary" [routerLink]="'/user/edit/' + user._id" routerLinkActive="active">Edit</a>
+    <p><b class="label">Name:</b>{{user.name}}</p>
+    <p><b class="label">Email:</b>{{user.email}}</p>
+    <p><b class="label">Role:</b>{{user.role}}</p>
+    <p><b class="label">Created:</b>{{user.createdAt | date: 'dd.MM.yyyy HH:mm'}}</p>
+    <p><b class="label">Last update:</b>{{user.updatedAt | date: 'dd.MM.yyyy HH:mm'}}</p>
+  </mat-card-content>
+</mat-card>

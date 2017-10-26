@@ -71,9 +71,14 @@ async function updateUser (ctx, next) {
     try {
         ctx.body = await User.update(id, data);
     } catch (err) {
-        console.log(err);
-        ctx.status = 500;
-        ctx.body = {message: 'Update user error'};
+        if (err.code === 11000) { // duplicate email
+            ctx.status = 409;
+            ctx.body = {message: 'Email already exists'};
+        } else {
+            console.log(err);
+            ctx.status = 500;
+            ctx.body = {message: 'Update user error'};
+        }
     }
 }
 

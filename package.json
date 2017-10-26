@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/server.js",
+    "build": "cd web && ng build -op ../public -dop false",
     "test": "npm run test-unit && npm run test-integration",
     "test-unit": "SET NODE_ENV=test && mocha src/**/*.spec.js",
     "// for unix": "NODE_ENV=test mocha src/**/*.spec.js",
     "test-integration": "SET NODE_ENV=test && mocha test/**/*.test.js",
     "/// for unix": "NODE_ENV=test mocha test/**/*.test.js",
     "lint": "eslint src",
-    "apidoc": "apidoc -i src -o public/apidoc"
+    "apidoc": "apidoc -i src -o public/apidoc",
+    "postinstall": "cd web && npm i"
   },
   "author": "Shak",
   "license": "ISC",
