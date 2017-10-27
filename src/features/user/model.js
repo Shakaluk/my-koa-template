@@ -18,15 +18,15 @@ const User = {
     },
 
     getAll (options) {
-        let sort = {};
+        let sortObj = {};
 
-        if (options.sort) {
-            sort[options.sort] = options.order;
+        if (options.order) {
+            sortObj[options.sort] = options.order === 'asc' ? 1 : -1;
         } else {
-            sort.createdAt = options.order;
+            sortObj.createdAt = -1;
         }
 
-        return Model.find().sort(sort).skip(options.skip).limit(options.limit);
+        return Model.find().sort(sortObj).skip(options.skip).limit(options.limit);
     },
 
     get (id) {

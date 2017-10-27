@@ -13,11 +13,11 @@ module.exports = {
     },
 
     GET_ORDERS: {
-        ASCENDING : 1,
-        DESCENDING: -1
+        ASCENDING : 'asc',
+        DESCENDING: 'desc'
     },
 
-    DEFAULT_ORDER: 1,
+    DEFAULT_ORDER: 'asc',
 
     DEFAULT_SKIP: 0,
 
