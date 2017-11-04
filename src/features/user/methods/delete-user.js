@@ -25,7 +25,15 @@ const schema = require('../validate-schema');
  * @apiName deleteUser
  * @apiGroup User
  * @apiVersion 1.0.0
+ * @apiPermission admin
  * @apiDescription Delete User
+ *
+ * @apiHeader {String} Authorization User unique access-token.
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5Zjk5ODYwMjIyZTMyMzAyYzFjZTQ1NyIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNTA5NjM4MzQzLCJleHAiOjE1MDk2MzkyNDN9.wccECiky5KFyPcuDs7ATPC68r4SnOagxVwtgYgenc-E"
+ *     }
  *
  * @apiExample {curl} Example usage:
  *     curl -i http://www.example.com/user/595b6a53f7909c41f0e2897b
@@ -48,7 +56,8 @@ async function deleteUser (ctx, next) {
     }
 
     try {
-        ctx.body = await User.delete(id);
+        await User.delete(id);
+        ctx.status = 200;
     } catch (err) {
         console.log(err);
         ctx.status = 500;

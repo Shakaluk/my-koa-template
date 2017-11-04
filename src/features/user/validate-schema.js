@@ -9,6 +9,11 @@ Joi.objectId = require('joi-objectid')(Joi);
 
 const id = Joi.objectId().required();
 
+const login = joiObject.keys({
+    email   : Joi.string().email().required(),
+    password: Joi.string().required().min(CONSTANTS.PASSWORD_MIN_LENGTH)
+});
+
 const create = joiObject.keys({
     email: Joi.string().email().required(),
     name : Joi.string().required(),
@@ -31,6 +36,7 @@ const getAll = joiObject.keys({
 
 module.exports = {
     id,
+    login,
     create,
     update,
     getAll

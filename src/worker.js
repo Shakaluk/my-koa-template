@@ -11,8 +11,9 @@ const app = new Koa();
 
 const router = require('./features');
 const mongoUri = require('../config').mongoUri;
+const passport = require('./features/auth/passport');
 
-mongoose.Promise = global.Promise;
+mongoose.Promise = Promise;
 mongoose.connect(mongoUri, {
     useMongoClient: true
 });
@@ -28,6 +29,8 @@ app.use(bodyParser({
 app.use(cors());
 
 app.use(serve(path.join(__dirname, '../public')));
+
+app.use(passport.initialize());
 
 app.use(router.routes());
 

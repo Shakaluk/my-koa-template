@@ -22,4 +22,6 @@ module.exports = {
     DEFAULT_SKIP: 0,
 
     DEFAULT_LIMIT: 15,
+
+    PASSWORD_MIN_LENGTH: 8
 };

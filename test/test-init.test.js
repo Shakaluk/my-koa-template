@@ -1,8 +1,15 @@
 'use strict';
 
-before(function () {
+const clearDatabase = require('./helpers/clear-database');
+
+before(async function () {
     require('../src/worker');
-    // console.log('before');
+
+    try {
+        await clearDatabase();
+    } catch (err) {
+        console.log(err);
+    }
 });
 
 after(function () {

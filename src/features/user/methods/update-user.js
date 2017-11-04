@@ -25,7 +25,15 @@ const schema = require('../validate-schema');
  * @apiName updateUser
  * @apiGroup User
  * @apiVersion 1.0.0
+ * @apiPermission admin
  * @apiDescription Update user
+ *
+ * @apiHeader {String} Authorization User unique access-token.
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5Zjk5ODYwMjIyZTMyMzAyYzFjZTQ1NyIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNTA5NjM4MzQzLCJleHAiOjE1MDk2MzkyNDN9.wccECiky5KFyPcuDs7ATPC68r4SnOagxVwtgYgenc-E"
+ *     }
  *
  * @apiParam {String} [name] User <code>name</code>.
  * @apiParam {String} [email] User <code>email</code>.
