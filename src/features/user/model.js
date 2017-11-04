@@ -33,6 +33,10 @@ const User = {
         return Model.findById(id);
     },
 
+    getOne (options) {
+        return Model.findOne(options, '+password');
+    },
+
     update (id, data) {
         return Model.findByIdAndUpdate(id, data, {new: true, runValidators: true});
     },

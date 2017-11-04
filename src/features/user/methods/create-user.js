@@ -28,6 +28,7 @@ const config = require('../../../../config');
  * @apiName createUser
  * @apiGroup User
  * @apiVersion 1.0.0
+ * @apiPermission admin
  * @apiDescription Create user
  *
  * @apiParam {String} name User <code>name</code>.
@@ -35,7 +36,7 @@ const config = require('../../../../config');
  *
  * @apiParamExample {json} Request-Example:
  *     {
- *       "name" : "Example"
+ *       "name" : "Example",
  *       "email": "example@example.mail"
  *     }
  *
@@ -50,7 +51,7 @@ async function createUser (ctx, next) {
     let data;
 
     try {
-        data = await Joi.attempt(body, schema.create); // TODO: add role
+        data = await Joi.attempt(body, schema.create);
     } catch (err) {
         ctx.status = 400;
         ctx.body = {

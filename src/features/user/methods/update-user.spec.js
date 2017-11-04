@@ -3,6 +3,7 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 const Faker = require('faker');
+const Joi = require('joi');
 
 const User = require('../model');
 const updateUser = require('./update-user');
@@ -10,7 +11,8 @@ const updateUser = require('./update-user');
 describe('update user method', function () {
     let defaultUser;
     let notValidUser;
-    let userId;
+    let defaultUserId;
+    let notValidUserId;
 
     before(function () {
         defaultUser = {
@@ -23,18 +25,21 @@ describe('update user method', function () {
             email: Faker.name.firstName()
         };
 
-        userId = '595b6a53f7909c41f0e2897b';
+        defaultUserId = '595b6a53f7909c41f0e2897b';
+
+        notValidUserId = '595b6a53f7909c41f0e289';
     });
 
     it('should update user', async function () {
-        const stub = this.sandbox.stub(User, 'update').returnsWithResolve({});
+        const validateSpy = this.sandbox.spy(Joi, 'attempt');
+        const updateStub = this.sandbox.stub(User, 'update').returnsWithResolve({});
 
         const ctx = {
             request: {
                 body: defaultUser
             },
             params: {
-                id: userId
+                id: defaultUserId
             }
         };
 
@@ -44,18 +49,20 @@ describe('update user method', function () {
             expect(err).to.not.exist;
         }
 
-        sinon.assert.calledOnce(stub);
+        sinon.assert.calledTwice(validateSpy);
+        sinon.assert.calledOnce(updateStub);
     });
 
-    it('should not update user', async function () {
-        const spy = this.sandbox.spy(User, 'update');
+    it('should not update user with invalid data', async function () {
+        const validateSpy = this.sandbox.spy(Joi, 'attempt');
+        const updateStub = this.sandbox.spy(User, 'update');
 
         const ctx = {
             request: {
                 body: notValidUser
             },
             params: {
-                id: userId
+                id: defaultUserId
             }
         };
 
@@ -65,6 +72,56 @@ describe('update user method', function () {
             expect(err).to.not.exist;
         }
 
-        sinon.assert.notCalled(spy);
+        sinon.assert.calledTwice(validateSpy);
+        sinon.assert.notCalled(updateStub);
+    });
+
+    it('should not update user with invalid id', async function () {
+        const validateSpy = this.sandbox.spy(Joi, 'attempt');
+        const updateStub = this.sandbox.spy(User, 'update');
+
+        const ctx = {
+            request: {
+                body: defaultUser
+            },
+            params: {
+                id: notValidUserId
+            }
+        };
+
+        try {
+            await updateUser(ctx);
+        } catch (err) {
+            expect(err).to.not.exist;
+        }
+
+        sinon.assert.calledOnce(validateSpy);
+        sinon.assert.notCalled(updateStub);
+    });
+
+    it('should log update model error', async function () {
+        const validateSpy = this.sandbox.spy(Joi, 'attempt');
+        const updateStub = this.sandbox.stub(User, 'update').returnsWithReject(new Error('fatal'));
+        const ctx = {
+            request: {
+                body: defaultUser
+            },
+            params: {
+                id: defaultUserId
+            },
+            throw (err) {
+                throw err;
+            }
+        };
+
+        try {
+            await updateUser(ctx);
+        } catch (err) {
+            expect(err).to.be.an('error');
+            expect(err.message).equal('fatal');
+        }
+
+        sinon.assert.calledTwice(validateSpy);
+        sinon.assert.calledOnce(updateStub);
     });
 });
