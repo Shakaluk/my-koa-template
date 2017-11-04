@@ -52,3 +52,8 @@ npm run apidoc
 
 npm run lint
 
+## Build web app
+
+npm run build
+
+** To open UI visit http://localhost:3000

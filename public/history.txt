@@ -2,6 +2,8 @@
 
 27.10.2017 get users order changed from (1, -1) to ('asc', 'desc'),
 
+26.10.2017 angular web app added, C.R.U.D user on UI added, updating user role added, bugs fixed
+
 11.10.2017 api documentation, hisory file, password hashing, users list pagination added. tests fixed
 
 22.08.2017 MongoDB added. Async fixed

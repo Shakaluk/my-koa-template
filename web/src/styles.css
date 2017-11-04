@@ -1,0 +1,27 @@
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+body {
+  margin: 0;
+  font-family: Roboto, sans-serif;
+}
+
+.mat-button {
+  font-size: 18px;
+}
+
+mat-card {
+  margin: 30px;
+  overflow: auto;
+}
+
+mat-spinner {
+  margin:0 auto
+}
+
+.loader {
+  height: 5px;
+}
+
+.flex-spacer {
+  flex: 1 1 auto;
+}

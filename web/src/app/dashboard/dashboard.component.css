@@ -1,0 +1,35 @@
+.title {
+  padding: 0;
+}
+
+mat-toolbar {
+  display: block;
+  text-align: center;
+}
+
+.half-width {
+  width: 49%;
+  display: inline-block;
+}
+
+.half-width > mat-card {
+  height: 100px;
+}
+
+mat-card {
+  text-align: center;
+}
+
+.count-container {
+  position: relative;
+  font-size: 24px;
+}
+
+.count-container mat-icon {
+  position: absolute;
+  bottom: 2px;
+}
+
+.logo-img {
+  width: 150px;
+}
