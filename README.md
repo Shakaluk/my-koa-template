@@ -4,10 +4,19 @@ Making this repo for faster projects launch
 
 ## Features:
 
+- User token based auth
+- Admin/user roles
 - Create user
 - Get user/s
 - Update user
 - Delete user
+
+## Technologies:
+
+- Node.js        https://nodejs.org
+- MongoDB        https://www.mongodb.com
+- Koa            http://koajs.com
+- Passport       http://www.passportjs.org
 
 ## Project launch:
 
