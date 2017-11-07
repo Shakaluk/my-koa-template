@@ -33,15 +33,30 @@ const localStrategy = new LocalStrategy(localOptions, async function (email, pas
     passwordHash = crypto.createHmac('sha256', config.cryptoSecret).update(password).digest('hex');
 
     if (!user) {
-        return done(null, false, {message: 'Email does not exist'});
+        const data = {
+            type   : 'email',
+            message: 'Email does not exist'
+        };
+
+        return done(null, false, data);
     }
 
     if (!passwordHash || user.password !== passwordHash) {
-        return done(null, false, {message: 'Wrong password'});
+        const data = {
+            type   : 'password',
+            message: 'Wrong password'
+        };
+
+        return done(null, false, data);
     }
 
     if (user.status === 'blocked') {
-        return done(null, false, {message: 'User blocked'});
+        const data = {
+            type   : 'status',
+            message: 'User blocked'
+        };
+
+        return done(null, false, data);
     }
 
     return done(null, {

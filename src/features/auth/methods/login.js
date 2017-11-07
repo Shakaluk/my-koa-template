@@ -69,6 +69,7 @@ async function loginUser (ctx, next) {
         }
 
         if (user === false) {
+            ctx.status = 401;
             ctx.body = data;
             return;
         }
