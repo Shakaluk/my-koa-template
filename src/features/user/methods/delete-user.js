@@ -58,6 +58,7 @@ async function deleteUser (ctx, next) {
     try {
         await User.delete(id);
         ctx.status = 200;
+        ctx.body = {};
     } catch (err) {
         console.log(err);
         ctx.status = 500;
