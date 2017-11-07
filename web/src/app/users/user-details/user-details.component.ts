@@ -5,6 +5,7 @@ import 'rxjs/add/operator/switchMap';
 
 import { User } from '../user';
 import { UserService } from '../user.service';
+import { AuthService } from '../../auth/auth.service';
 import { DialogsService } from '../../shared/dialogs/dialogs.service';
 
 @Component({
@@ -19,6 +20,7 @@ export class UserDetailsComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private authService: AuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private dialogsService: DialogsService

@@ -7,14 +7,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule  } from '@angular/cdk/layout';
 
 import { AppRoutingModule } from './app-routing.module';
+import { DialogsModule } from './shared/dialogs/dialogs.module';
 import { AppComponent } from './app.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserDetailsComponent } from './users/user-details/user-details.component';
-import { UserService } from './users/user.service';
 import { UserNewComponent } from './users/user-new/user-new.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
-import { DialogsModule } from './shared/dialogs/dialogs.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserService } from './users/user.service';
+import { AuthService } from './auth/auth.service';
+import { AuthGuard } from './auth/guards/auth.guard';
+import { AdminGuard } from './auth/guards/admin.guard';
+import { LoginComponent } from './auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     UserDetailsComponent,
     UserNewComponent,
     UserEditComponent,
-    DashboardComponent
+    DashboardComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +58,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatMenuModule
   ],
   providers: [
-    UserService
+    UserService,
+    AuthService,
+    AuthGuard,
+    AdminGuard
   ],
   bootstrap: [AppComponent]
 })

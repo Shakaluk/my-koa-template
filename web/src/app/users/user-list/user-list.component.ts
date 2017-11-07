@@ -8,6 +8,7 @@ import 'rxjs/add/observable/merge';
 
 import { User } from '../user';
 import { UserService } from '../user.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-user-list',
@@ -27,7 +28,8 @@ export class UserListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {

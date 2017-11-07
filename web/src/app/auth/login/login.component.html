@@ -1,0 +1,46 @@
+<div class="login">
+  <mat-card class="login-form">
+    <mat-toolbar color="primary">
+      <div class="center">
+        Sign in
+      </div>
+    </mat-toolbar>
+    <mat-card-content>
+      <form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm">
+        <mat-form-field>
+          <input matInput [(ngModel)]="user.email" name="email" placeholder="Email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+          <mat-error *ngIf="userForm.controls.email?.hasError('pattern')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="userForm.controls.email?.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="emailError">
+            {{emailError}}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [(ngModel)]="user.password" type="password" name="password" placeholder="Password" required  minlength="8">
+          <mat-error *ngIf="userForm.controls.password?.hasError('required')">
+            Password is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="userForm.controls.name?.hasError('minlength')">
+            Password should contain at least <strong>8</strong> characters
+          </mat-error>
+          <mat-error *ngIf="passwordError">
+            {{passwordError}}
+          </mat-error>
+        </mat-form-field>
+        <div class="button-container">
+          <button mat-raised-button class="full-width" color="primary" [disabled]="!userForm.form.valid || submitted">
+            <span *ngIf="!submitted">Sign in</span>
+            <mat-spinner *ngIf="submitted" [diameter]="36" [strokeWidth]="4"></mat-spinner>
+          </button>
+        </div>
+        <div class="status-error" *ngIf="statusError">
+          {{statusError}}
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
