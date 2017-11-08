@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 import { AuthService } from './auth/auth.service';
 
@@ -21,7 +22,8 @@ export class AppComponent {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private snackBar: MatSnackBar,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     breakpointObserver.observe([
       Breakpoints.HandsetPortrait,
@@ -30,6 +32,15 @@ export class AppComponent {
     ]).subscribe(result => {
       this.handsetPortrait = result.matches;
     });
+  }
+
+  logout() {
+    this.authService.logout();
+    this.goToLogin();
+  }
+
+  goToLogin(): void {
+    this.router.navigate(['login']);
   }
 
   showNotImplemented() {

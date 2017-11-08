@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
 import { MatButtonModule, MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, MatTableModule, MatPaginatorModule, MatTooltipModule, MatSortModule, MatInputModule, MatSelectModule, MatProgressSpinnerModule, MatProgressBarModule, MatDialogModule, MatSnackBarModule, MatMenuModule } from '@angular/material';
@@ -19,6 +19,10 @@ import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { AdminGuard } from './auth/guards/admin.guard';
 import { LoginComponent } from './auth/login/login.component';
+
+export function startupServiceFactory(authService: AuthService): Function {
+  return () => authService.init();
+}
 
 @NgModule({
   declarations: [
@@ -61,7 +65,13 @@ import { LoginComponent } from './auth/login/login.component';
     UserService,
     AuthService,
     AuthGuard,
-    AdminGuard
+    AdminGuard,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: startupServiceFactory,
+      deps: [AuthService],
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
