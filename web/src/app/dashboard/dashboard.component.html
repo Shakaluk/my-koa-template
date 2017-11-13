@@ -1,0 +1,39 @@
+<mat-card class="title">
+  <mat-toolbar color="primary">
+    <span class="flex-spacer"></span>
+    <span>Welcome to Shak Systems !</span>
+    <span class="flex-spacer"></span>
+  </mat-toolbar>
+</mat-card>
+<div class="half-width">
+  <mat-card>
+    <mat-card-title>Users</mat-card-title>
+    <mat-card-content>
+      <span class="count-container">
+        {{users}}
+        <mat-icon>person</mat-icon>
+      </span>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div class="half-width">
+  <mat-card>
+    <mat-card-title>
+      Admins
+    </mat-card-title>
+    <mat-card-content>
+      <span class="count-container">
+        {{admins}}
+        <mat-icon>star</mat-icon>
+      </span>
+    </mat-card-content>
+  </mat-card>
+</div>
+<mat-card>
+  <h3>UI</h3>
+  <img class="logo-img" [src]="staticUrl + 'images/angular-icon.png'">
+  <h3>Server</h3>
+  <img class="logo-img" [src]="staticUrl + 'images/node-icon.png'">
+  <h3>Database</h3>
+  <img class="logo-img" [src]="staticUrl + 'images/mongodb-icon.png'">
+</mat-card>

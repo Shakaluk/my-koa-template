@@ -1,0 +1,52 @@
+<mat-card>
+  <mat-card-title>Users</mat-card-title>
+  <div class="loader">
+    <mat-progress-bar mode="indeterminate" *ngIf="!dataSource.loaded"></mat-progress-bar>
+  </div>
+  <mat-card-content>
+    <mat-table #table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="role">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Role </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <mat-icon *ngIf="element.role === 'user'" matTooltip="User" matTooltipPosition="right">person</mat-icon>
+          <mat-icon *ngIf="element.role === 'admin'" matTooltip="Admin" matTooltipPosition="right">star</mat-icon>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="createdAt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Created </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.createdAt | date: 'dd.MM.yyyy HH:mm'}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="updatedAt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Last update </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.updatedAt | date: 'dd.MM.yyyy HH:mm'}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <a mat-icon-button [routerLink]="'/user/' + element._id" routerLinkActive="active" matTooltip="View" matTooltipPosition="left">
+            <mat-icon>account_circle</mat-icon>
+          </a>
+          <a *ngIf="authService.role == 'admin'" mat-icon-button [routerLink]="'/user/edit/' + element._id" routerLinkActive="active" matTooltip="Edit" matTooltipPosition="right">
+            <mat-icon>edit</mat-icon>
+          </a>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator
+                   [length]="length"
+                   [pageIndex]="pageIndex"
+                   [pageSize]="pageSize"
+                   [pageSizeOptions]="pageSizeOptions">
+    </mat-paginator>
+  </mat-card-content>
+</mat-card>

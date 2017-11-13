@@ -1,0 +1,66 @@
+.login {
+  height: 100vh;
+  position: relative;
+}
+
+.login-form {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30%;
+  min-width: 300px;
+  height: 340px;
+}
+
+mat-card {
+  padding: 0;
+  border-radius: 5px;
+}
+
+.center {
+  text-align: center;
+  width: 100%;
+}
+
+mat-form-field {
+  display: block !important;
+  width: 100% !important;
+}
+
+form {
+  width: 80%;
+  margin: 30px 10% 0 10% !important;
+}
+
+.button-container {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.status-error {
+  margin-top: 10px;
+  width: 100%;
+  text-align: center;
+  color: #ff0000;
+}
+
+.badges {
+  width: 100%;
+  text-align: center;
+}
+
+.auth-badge img {
+  border-radius: 4px;
+  height: 40px;
+}
+
+.auth-badge {
+  color: transparent;
+  margin: 10px 10px 0 10px;
+}

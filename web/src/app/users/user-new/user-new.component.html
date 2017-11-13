@@ -1,0 +1,42 @@
+<mat-card>
+  <mat-card-title>Add user</mat-card-title>
+  <mat-card-content>
+    <form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm">
+      <mat-form-field>
+        <input matInput [(ngModel)]="user.name" name="name" placeholder="Name" required  minlength="3">
+        <mat-error *ngIf="userForm.controls.name?.hasError('required')">
+          Name is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="userForm.controls.name?.hasError('minlength')">
+          Name should contain at least <strong>3</strong> characters
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [(ngModel)]="user.email" name="email" placeholder="Email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+        <mat-error *ngIf="userForm.controls.email?.hasError('pattern')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="userForm.controls.email?.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="emailError">
+          {{emailError}}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="Role" [(ngModel)]="user.role" name="role" required>
+          <mat-option *ngFor="let role of roles" [value]="role.value">
+            {{role.viewValue}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="userForm.controls.role?.hasError('required')">
+          Role is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" [disabled]="!userForm.form.valid || submitted">
+        <span *ngIf="!submitted">Add</span>
+        <mat-spinner *ngIf="submitted" [diameter]="36" [strokeWidth]="4"></mat-spinner>
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,32 @@
+<mat-sidenav-container>
+  <mat-toolbar *ngIf="authService.isLoggedIn" color="primary">
+    <button mat-icon-button *ngIf="handsetPortrait" (click)="menu.toggle()" matTooltip="Menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div *ngIf="!handsetPortrait">
+      <span *ngFor="let item of navigationList">
+        <a *ngIf="item.permission == 'all' || item.permission == authService.role" mat-button [routerLink]="item.link" routerLinkActive="active">{{item.name}}</a>
+      </span>
+    </div>
+    <span class="flex-spacer"></span>
+    <button mat-icon-button>
+      <mat-icon [matMenuTriggerFor]="language" matTooltip="Language">language</mat-icon>
+      <mat-menu #language="matMenu">
+        <button mat-menu-item (click)="showNotImplemented()">English</button>
+        <button mat-menu-item (click)="showNotImplemented()">Українська</button>
+      </mat-menu>
+    </button>
+    <button mat-icon-button (click)="logout()" matTooltip="Logout">
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
+  </mat-toolbar>
+  <mat-sidenav #menu>
+    <h3 mat-subheader>Menu</h3>
+    <mat-nav-list>
+      <span *ngFor="let item of navigationList">
+        <a *ngIf="item.permission == 'all' || item.permission == authService.role" mat-list-item [routerLink]="item.link" routerLinkActive="active" (click)="menu.toggle()">{{item.name}}<div class="flex-spacer"></div><mat-icon>{{item.icon}}</mat-icon></a>
+      </span>
+    </mat-nav-list>
+  </mat-sidenav>
+  <router-outlet></router-outlet>
+</mat-sidenav-container>

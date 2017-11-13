@@ -1,10 +1,14 @@
-13.11.2017 facebook and google+ authentication added, server api changed to '/api', bugs fixed
+13.11.2017 facebook and google+ authentication added, server api changed to '/api', angular updated to v.5, bugs fixed
 
-08.11.2017 token refreshing added
+08.11.2017 token refreshing on web app added
+
+07.11.2017 authentication and role handling on web app added
 
 04.11.2017 authorization local and jwt added, tests added and update, bugs fixed
 
 27.10.2017 get users order changed from (1, -1) to ('asc', 'desc'),
+
+26.10.2017 angular web app added, C.R.U.D user on UI added, updating user role added, bugs fixed
 
 11.10.2017 api documentation, hisory file, password hashing, users list pagination added. tests fixed
 
