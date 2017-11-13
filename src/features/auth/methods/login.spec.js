@@ -20,6 +20,7 @@ describe('login method', function () {
 
         defaultUser = {
             id  : '595b6a53f7909c41f0e2897b',
+            name: Faker.name.firstName() + ' ' + Faker.name.lastName(),
             role: CONSTANTS.USER_ROLES.USER
         };
 
@@ -58,10 +59,6 @@ describe('login method', function () {
         expect(ctx.body).to.be.an('object');
         expect(ctx.body.token).to.exist;
         expect(ctx.body.token).to.be.an('string');
-        expect(ctx.body.user).to.exist;
-        expect(ctx.body.user).to.be.an('object');
-        expect(ctx.body.user.id).to.exist;
-        expect(ctx.body.user.id).eql(defaultUser.id);
     });
 
     it('should not create token with invalid login data', async function () {

@@ -46,7 +46,7 @@ const schema = require('../validate-schema');
  * @apiParam {Number} [limit] The users list <code>limit</code> (default 15).
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://www.example.com/user
+ *     curl -i http://www.example.com/api/user
  *
  * @apiUse apiSuccessExample_get_users
  */

@@ -15,7 +15,7 @@ describe('C.R.U.D user', function () {
     let url;
 
     before(async function () {
-        url = `http://${process.env.HOST}:${process.env.PORT}/user`;
+        url = `http://${process.env.HOST}:${process.env.PORT}/api/user`;
 
         defaultUser = {
             name : Faker.name.firstName() + ' ' + Faker.name.lastName(),
@@ -29,208 +29,206 @@ describe('C.R.U.D user', function () {
         token = createToken(CONSTANTS.USER_ROLES.ADMIN);
     });
 
-    describe('user', function () {
-        it('should get empty users array', async function () {
-            let response;
-            let options = {
-                url    : url,
-                json   : true,
-                headers: {
-                    authorization: token
-                }
-            };
-
-            try {
-                response = await request(options);
-            } catch (err) {
-                expect(err).to.not.exist;
+    it('should get empty users array', async function () {
+        let response;
+        let options = {
+            url    : url,
+            json   : true,
+            headers: {
+                authorization: token
             }
+        };
 
-            expect(response).to.exist;
-            expect(response).to.be.an('object');
-            expect(response.body).to.exist;
-            expect(response.body).to.be.an('object');
-            expect(response.body.data).to.exist;
-            expect(response.body.data).to.be.an('array');
-            expect(response.body.data).to.be.empty;
-        });
+        try {
+            response = await request(options);
+        } catch (err) {
+            expect(err).to.not.exist;
+        }
 
-        it('should create user', async function () {
-            let response;
-            let options = {
-                url    : url,
-                method : 'post',
-                body   : defaultUser,
-                json   : true,
-                headers: {
-                    authorization: token
-                }
-            };
+        expect(response).to.exist;
+        expect(response).to.be.an('object');
+        expect(response.body).to.exist;
+        expect(response.body).to.be.an('object');
+        expect(response.body.data).to.exist;
+        expect(response.body.data).to.be.an('array');
+        expect(response.body.data).to.be.empty;
+    });
 
-            try {
-                response = await request(options);
-            } catch (err) {
-                expect(err).to.not.exist;
+    it('should create user', async function () {
+        let response;
+        let options = {
+            url    : url,
+            method : 'post',
+            body   : defaultUser,
+            json   : true,
+            headers: {
+                authorization: token
             }
+        };
 
-            expect(response).to.exist;
-            expect(response).to.be.an('object');
-            expect(response.body).to.exist;
-            expect(response.body).to.be.an('object');
-            expect(response.body.name).to.exist;
-            expect(response.body.name).to.equal(defaultUser.name);
+        try {
+            response = await request(options);
+        } catch (err) {
+            expect(err).to.not.exist;
+        }
 
-            userId = response.body._id;
-        });
+        expect(response).to.exist;
+        expect(response).to.be.an('object');
+        expect(response.body).to.exist;
+        expect(response.body).to.be.an('object');
+        expect(response.body.name).to.exist;
+        expect(response.body.name).to.equal(defaultUser.name);
 
-        it('should get users', async function () {
-            let response;
-            let options = {
-                url    : url,
-                json   : true,
-                headers: {
-                    authorization: token
-                }
-            };
+        userId = response.body._id;
+    });
 
-            try {
-                response = await request(options);
-            } catch (err) {
-                expect(err).to.not.exist;
+    it('should get users', async function () {
+        let response;
+        let options = {
+            url    : url,
+            json   : true,
+            headers: {
+                authorization: token
             }
+        };
 
-            expect(response).to.exist;
-            expect(response).to.be.an('object');
-            expect(response.body).to.exist;
-            expect(response.body).to.be.an('object');
-            expect(response.body.data).to.exist;
-            expect(response.body.data).to.be.an('array');
-            expect(response.body.data[0]).to.exist;
-            expect(response.body.data[0]).to.be.an('object');
-            expect(response.body.data[0].name).to.exist;
-            expect(response.body.data[0].name).to.equal(defaultUser.name);
-        });
+        try {
+            response = await request(options);
+        } catch (err) {
+            expect(err).to.not.exist;
+        }
 
-        it('should get user', async function () {
-            let response;
-            let options = {
-                url    : `${url}/${userId}`,
-                json   : true,
-                headers: {
-                    authorization: token
-                }
-            };
+        expect(response).to.exist;
+        expect(response).to.be.an('object');
+        expect(response.body).to.exist;
+        expect(response.body).to.be.an('object');
+        expect(response.body.data).to.exist;
+        expect(response.body.data).to.be.an('array');
+        expect(response.body.data[0]).to.exist;
+        expect(response.body.data[0]).to.be.an('object');
+        expect(response.body.data[0].name).to.exist;
+        expect(response.body.data[0].name).to.equal(defaultUser.name);
+    });
 
-            try {
-                response = await request(options);
-            } catch (err) {
-                expect(err).to.not.exist;
+    it('should get user', async function () {
+        let response;
+        let options = {
+            url    : `${url}/${userId}`,
+            json   : true,
+            headers: {
+                authorization: token
             }
+        };
 
-            expect(response).to.exist;
-            expect(response).to.be.an('object');
-            expect(response.body).to.exist;
-            expect(response.body).to.be.an('object');
-            expect(response.body.name).to.exist;
-            expect(response.body.name).to.equal(defaultUser.name);
-        });
+        try {
+            response = await request(options);
+        } catch (err) {
+            expect(err).to.not.exist;
+        }
 
-        it('should update user', async function () {
-            let response;
-            let options = {
-                url    : `${url}/${userId}`,
-                method : 'patch',
-                body   : updateParams,
-                json   : true,
-                headers: {
-                    authorization: token
-                }
-            };
+        expect(response).to.exist;
+        expect(response).to.be.an('object');
+        expect(response.body).to.exist;
+        expect(response.body).to.be.an('object');
+        expect(response.body.name).to.exist;
+        expect(response.body.name).to.equal(defaultUser.name);
+    });
 
-            try {
-                response = await request(options);
-            } catch (err) {
-                expect(err).to.not.exist;
+    it('should update user', async function () {
+        let response;
+        let options = {
+            url    : `${url}/${userId}`,
+            method : 'patch',
+            body   : updateParams,
+            json   : true,
+            headers: {
+                authorization: token
             }
+        };
 
-            expect(response).to.exist;
-            expect(response).to.be.an('object');
-            expect(response.body).to.exist;
-            expect(response.body).to.be.an('object');
-            expect(response.body.name).to.exist;
-            expect(response.body.name).to.equal(updateParams.name);
-        });
+        try {
+            response = await request(options);
+        } catch (err) {
+            expect(err).to.not.exist;
+        }
 
-        it('should get updated user', async function () {
-            let response;
-            let options = {
-                url    : `${url}/${userId}`,
-                json   : true,
-                headers: {
-                    authorization: token
-                }
-            };
+        expect(response).to.exist;
+        expect(response).to.be.an('object');
+        expect(response.body).to.exist;
+        expect(response.body).to.be.an('object');
+        expect(response.body.name).to.exist;
+        expect(response.body.name).to.equal(updateParams.name);
+    });
 
-            try {
-                response = await request(options);
-            } catch (err) {
-                expect(err).to.not.exist;
+    it('should get updated user', async function () {
+        let response;
+        let options = {
+            url    : `${url}/${userId}`,
+            json   : true,
+            headers: {
+                authorization: token
             }
+        };
 
-            expect(response).to.exist;
-            expect(response).to.be.an('object');
-            expect(response.body).to.exist;
-            expect(response.body).to.be.an('object');
-            expect(response.body.name).to.exist;
-            expect(response.body.name).to.equal(updateParams.name);
-        });
+        try {
+            response = await request(options);
+        } catch (err) {
+            expect(err).to.not.exist;
+        }
 
-        it('should delete user', async function () {
-            let response;
-            let options = {
-                url    : `${url}/${userId}`,
-                method : 'delete',
-                json   : true,
-                headers: {
-                    authorization: token
-                }
-            };
+        expect(response).to.exist;
+        expect(response).to.be.an('object');
+        expect(response.body).to.exist;
+        expect(response.body).to.be.an('object');
+        expect(response.body.name).to.exist;
+        expect(response.body.name).to.equal(updateParams.name);
+    });
 
-            try {
-                response = await request(options);
-            } catch (err) {
-                expect(err).to.not.exist;
+    it('should delete user', async function () {
+        let response;
+        let options = {
+            url    : `${url}/${userId}`,
+            method : 'delete',
+            json   : true,
+            headers: {
+                authorization: token
             }
+        };
 
-            expect(response).to.exist;
-            expect(response).to.be.an('object');
-            expect(response.body).to.exist;
-            expect(response.body).to.equal('OK');
-        });
+        try {
+            response = await request(options);
+        } catch (err) {
+            expect(err).to.not.exist;
+        }
 
-        it('should get empty users array', async function () {
-            let response;
-            let options = {
-                url    : url,
-                json   : true,
-                headers: {
-                    authorization: token
-                }
-            };
+        expect(response).to.exist;
+        expect(response).to.be.an('object');
+        expect(response.body).to.exist;
+        expect(response.body).to.be.empty;
+    });
 
-            try {
-                response = await request(options);
-            } catch (err) {
-                expect(err).to.not.exist;
+    it('should get empty users array', async function () {
+        let response;
+        let options = {
+            url    : url,
+            json   : true,
+            headers: {
+                authorization: token
             }
+        };
 
-            expect(response).to.exist;
-            expect(response).to.be.an('object');
-            expect(response.body).to.exist;
-            expect(response.body).to.be.an('object');
-            expect(response.body.data).to.exist;
-            expect(response.body.data).to.be.an('array');
-            expect(response.body.data).to.be.empty;
-        });
+        try {
+            response = await request(options);
+        } catch (err) {
+            expect(err).to.not.exist;
+        }
+
+        expect(response).to.exist;
+        expect(response).to.be.an('object');
+        expect(response.body).to.exist;
+        expect(response.body).to.be.an('object');
+        expect(response.body.data).to.exist;
+        expect(response.body.data).to.be.an('array');
+        expect(response.body.data).to.be.empty;
     });
 });

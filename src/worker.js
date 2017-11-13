@@ -3,6 +3,7 @@
 const path = require('path');
 const Koa = require('koa');
 const cors = require('kcors');
+const send = require('koa-send');
 const serve = require('koa-static');
 const bodyParser = require('koa-bodyparser');
 const mongoose = require('mongoose');
@@ -33,5 +34,9 @@ app.use(serve(path.join(__dirname, '../public')));
 app.use(passport.initialize());
 
 app.use(router.routes());
+
+app.use(async (ctx) => {
+    await send(ctx, 'index.html', {root: path.join(__dirname, '../public')});
+});
 
 app.listen(process.env.PORT);

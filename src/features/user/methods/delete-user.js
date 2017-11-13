@@ -36,7 +36,7 @@ const schema = require('../validate-schema');
  *     }
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://www.example.com/user/595b6a53f7909c41f0e2897b
+ *     curl -i http://www.example.com/api/user/595b6a53f7909c41f0e2897b
  *
  * @apiUse apiSuccessExample_delete_user
  */

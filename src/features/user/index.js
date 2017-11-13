@@ -2,7 +2,7 @@
 
 const Router = require('koa-router');
 const router = new Router({
-    prefix: '/user'
+    prefix: '/api/user'
 });
 
 router.all('*', require('../auth/methods/is-authenticated'));

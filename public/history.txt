@@ -1,3 +1,7 @@
+13.11.2017 facebook and google+ authentication added, server api changed to '/api', bugs fixed
+
+08.11.2017 token refreshing added
+
 04.11.2017 authorization local and jwt added, tests added and update, bugs fixed
 
 27.10.2017 get users order changed from (1, -1) to ('asc', 'desc'),

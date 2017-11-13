@@ -44,7 +44,7 @@ const schema = require('../validate-schema');
  *    }
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://www.example.com/user/:id
+ *     curl -i http://www.example.com/api/user/:id
  *
  * @apiUse apiSuccessExample_update_user
  */

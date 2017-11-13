@@ -41,7 +41,7 @@ const config = require('../../../../config');
  *     }
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://www.example.com/user
+ *     curl -i http://www.example.com/api/user
  *
  * @apiUse apiSuccessExample_create_user
  */
