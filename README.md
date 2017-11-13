@@ -4,7 +4,8 @@ Making this repo for faster projects launch
 
 ## Features:
 
-- User token based auth
+- User token based authentication
+- Social authentication
 - Admin/user roles
 - Create user
 - Get user/s
