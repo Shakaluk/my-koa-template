@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-
-import 'rxjs/add/operator/switchMap';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { User } from '../user';
 import { UserService } from '../user.service';
@@ -32,11 +30,9 @@ export class UserEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.activatedRoute.paramMap
-      .switchMap((params: ParamMap) => {
-        this.id = params.get('id');
-        return this.userService.getUser(this.id);
-      })
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+
+    this.userService.getUser(this.id)
       .subscribe(user => this.user = user);
   }
 
@@ -49,19 +45,17 @@ export class UserEditComponent implements OnInit {
       role : this.user.role
     };
 
-
     this.userService.updateUser(this.id, data)
-      .then(user => this.goToList())
-      .catch((err) => {
-        const errData = JSON.parse(err.error);
+      .subscribe(user => this.goToList(),
+        err => {
+          this.submitted = false;
 
-        this.submitted = false;
-
-        if (err.status === 409) {
-          userForm.controls.email.setErrors({'exist': true});
-          this.emailError = errData.message;
+          if (err.status === 409) {
+            userForm.controls.email.setErrors({'exist': true});
+            this.emailError = err.error.message;
+          }
         }
-      });
+      );
   }
 
   goToList(): void {

@@ -31,6 +31,14 @@
             {{passwordError}}
           </mat-error>
         </mat-form-field>
+        <div class="badges">
+          <a [href]="apiUrl + 'auth/facebook'" class="auth-badge">
+            <img [src]="staticUrl + 'images/fb-auth.png'">
+          </a>
+          <a [href]="apiUrl + 'auth/google'" class="auth-badge">
+            <img [src]="staticUrl + 'images/g-auth.png'">
+          </a>
+        </div>
         <div class="button-container">
           <button mat-raised-button class="full-width" color="primary" [disabled]="!userForm.form.valid || submitted">
             <span *ngIf="!submitted">Sign in</span>

@@ -11,6 +11,7 @@ import { environment } from '../../environments/environment';
 export class DashboardComponent implements OnInit {
 
   public apiUrl = environment.apiUrl;
+  public staticUrl = environment.staticUrl;
   users = 0;
   admins = 0;
 

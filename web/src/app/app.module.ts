@@ -19,6 +19,7 @@ import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { AdminGuard } from './auth/guards/admin.guard';
 import { LoginComponent } from './auth/login/login.component';
+import { SocialComponent } from './auth/social/social.component';
 
 export function startupServiceFactory(authService: AuthService): Function {
   return () => authService.init();
@@ -32,7 +33,8 @@ export function startupServiceFactory(authService: AuthService): Function {
     UserNewComponent,
     UserEditComponent,
     DashboardComponent,
-    LoginComponent
+    LoginComponent,
+    SocialComponent
   ],
   imports: [
     BrowserModule,

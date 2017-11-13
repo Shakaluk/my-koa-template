@@ -33,17 +33,16 @@ export class UserNewComponent implements OnInit {
     this.submitted = true;
 
     this.userService.createUser(this.user)
-      .then(user => this.goToList())
-      .catch(err => {
-        const errData = JSON.parse(err.error);
-
+      .subscribe(user => this.goToList(),
+      err => {
         this.submitted = false;
 
         if (err.status === 409) {
           userForm.controls.email.setErrors({'exist': true});
-          this.emailError = errData.message;
+          this.emailError = err.error.message;
         }
-      });
+        }
+      );
   }
 
   goToList(): void {

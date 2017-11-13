@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-
-import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/of';
+import { catchError, map, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
+import { _throw } from 'rxjs/observable/throw';
 
 import { User } from '../users/user';
 import { environment } from '../../environments/environment';
@@ -39,17 +37,18 @@ export class AuthService {
     if(token) {
       this.setToken(token);
 
-      return this.refreshToken()
-        .switchMap(result => this.getLoggedUser())
-        .map((user: any) => this.user = user)
-        .toPromise();
+      return this.refreshToken().pipe(
+        switchMap(result => this.getLoggedUser()),
+        map((user: any) => this.user = user)
+      ).toPromise();
     }
   }
 
   getLoggedUser() {
     return this.getHeaders()
-      .switchMap(headers => this.http.get(`${this.userUrl}/${this.tokenData.id}`, {headers}))
-
+      .pipe(
+        switchMap(headers => this.http.get(`${this.userUrl}/${this.tokenData.id}`, {headers}))
+      );
   }
 
   setToken(token) {
@@ -61,21 +60,26 @@ export class AuthService {
   refreshToken() {
     const headers = new HttpHeaders({'Authorization': this.token});
 
-    return this.http.get(`${this.authUrl}/refresh`, {headers})
-      .map(response => this.setToken(response['token']));
+    return this.http.get(`${this.authUrl}/refresh`, {headers}).pipe(
+      map(response => this.setToken(response['token'])),
+      catchError(err => {
+        this.logout();
+        return _throw(err)})
+    );
   }
 
   getHeaders() {
     let headers;
 
     if(this.isTokenExpired()) {
-      return this.refreshToken()
-        .map(() => new HttpHeaders({'Authorization': this.token}))
+      return this.refreshToken().pipe(
+        map(() => new HttpHeaders({'Authorization': this.token}))
+      );
     }
 
     headers = new HttpHeaders({'Authorization': this.token});
 
-    return Observable.of(headers);
+    return of(headers);
   }
 
   parseJwt(token) {
@@ -89,14 +93,11 @@ export class AuthService {
     return this.tokenData.exp < Math.floor(Date.now() / 1000);
   }
 
-  login(user: object): Promise<any> {
-    return this.http.post(`${this.authUrl}/login`, user)
-      .toPromise()
-      .then(response => {
-        this.setToken(response['token']);
-        this.user = response['user'];
-      })
-      .catch(this.handleError);
+  login(user: object): Observable<any> {
+    return this.http.post(`${this.authUrl}/login`, user).pipe(
+      catchError(this.handleError),
+      map(response => this.setToken(response['token']))
+    );
   }
 
   logout() {
@@ -104,9 +105,9 @@ export class AuthService {
     localStorage.removeItem('token');
   }
 
-  private handleError(error: any): Promise<any> {
+  private handleError(error: any): Observable<any> {
     console.error('An error occurred', error);
 
-    return Promise.reject(error);
+    return _throw(error);
   }
 }

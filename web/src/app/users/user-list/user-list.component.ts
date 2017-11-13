@@ -3,6 +3,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
 
 import 'rxjs/add/observable/merge';
 
@@ -49,11 +50,12 @@ export class UserDataSource extends DataSource<any> {
   getData(skip, limit, sort?, order?) {
     this.loaded = false;
 
-    this.userService.getUsers(skip, limit, sort, order).subscribe((users) => {
-      this.loaded = true;
-      this._paginator.length = this.userService.getCount();
-      this.dataChange.next(users);
-    });
+    this.userService.getUsers(skip, limit, sort, order)
+      .subscribe(users => {
+        this.loaded = true;
+        this._paginator.length = this.userService.getCount();
+        this.dataChange.next(users);
+      });
   }
 
   connect(): Observable<User[]> {
@@ -62,15 +64,18 @@ export class UserDataSource extends DataSource<any> {
       this._sort.sortChange
     ];
 
-    Observable.merge(...displayDataChanges).subscribe(() => {
-      const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
+    Observable.merge(...displayDataChanges)
+      .subscribe(() => {
+        const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
 
-      this.getData(startIndex, this._paginator.pageSize, this._sort.active, this._sort.direction);
-    });
+        this.getData(startIndex, this._paginator.pageSize, this._sort.active, this._sort.direction);
+      });
 
-    return Observable.merge(...[this.dataChange]).map((users) => {
-      return users;
-    });
+    return Observable.merge(...[this.dataChange]).pipe(
+      map(users => {
+        return users;
+      })
+    )
   }
 
   disconnect() {}

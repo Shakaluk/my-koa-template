@@ -10,7 +10,7 @@
   transform: translate(-50%, -50%);
   width: 30%;
   min-width: 300px;
-  height: 300px;
+  height: 340px;
 }
 
 mat-card {
@@ -48,4 +48,19 @@ form {
   width: 100%;
   text-align: center;
   color: #ff0000;
+}
+
+.badges {
+  width: 100%;
+  text-align: center;
+}
+
+.auth-badge img {
+  border-radius: 4px;
+  height: 40px;
+}
+
+.auth-badge {
+  color: transparent;
+  margin: 10px 10px 0 10px;
 }

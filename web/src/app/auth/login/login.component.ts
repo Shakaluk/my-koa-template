@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../auth.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,8 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
 
+  public apiUrl = environment.apiUrl;
+  public staticUrl = environment.staticUrl;
   user = {
     email: '',
     password: ''
@@ -30,29 +33,29 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
 
     this.authService.login(this.user)
-      .then(user => this.goToDashboard())
-      .catch(err => {
-        const errData = JSON.parse(err.error);
-        console.log(errData);
+      .subscribe(user => this.goToDashboard(),
+        err => {
+          console.log(err.error);
 
-        this.submitted = false;
+          this.submitted = false;
 
-        if (err.status === 401) {
-          switch (errData.type) {
-            case 'email':
-              userForm.controls.email.setErrors({'exist': true});
-              this.emailError = errData.message;
-              break;
-            case 'password':
-              userForm.controls.password.setErrors({'exist': true});
-              this.passwordError = errData.message;
-              break;
-            case 'status':
-              this.statusError = errData.message;
-              break;
+          if (err.status === 401) {
+            switch (err.error.type) {
+              case 'email':
+                userForm.controls.email.setErrors({'exist': true});
+                this.emailError = err.error.message;
+                break;
+              case 'password':
+                userForm.controls.password.setErrors({'exist': true});
+                this.passwordError = err.error.message;
+                break;
+              case 'status':
+                this.statusError = err.error.message;
+                break;
+            }
           }
         }
-      });
+      );
   }
 
   goToDashboard(): void {
