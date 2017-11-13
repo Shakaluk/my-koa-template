@@ -15,6 +15,7 @@ Making this repo for faster projects launch
 
 - Node.js        https://nodejs.org
 - MongoDB        https://www.mongodb.com
+- Angular v.5    https://angular.io/
 - Koa            http://koajs.com
 - Passport       http://www.passportjs.org
 
@@ -25,6 +26,12 @@ npm i
 ## Start server:
 
 npm start
+
+## Build web app
+
+npm run build
+
+** To open UI visit http://localhost:3000
 
 ## Run unit tests:
 
@@ -51,9 +58,3 @@ npm run apidoc
 ** To check source code for common mistakes:
 
 npm run lint
-
-## Build web app
-
-npm run build
-
-** To open UI visit http://localhost:3000

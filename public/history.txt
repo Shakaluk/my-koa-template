@@ -1,3 +1,7 @@
+13.11.2017 facebook and google+ authentication added, server api changed to '/api', angular updated to v.5, bugs fixed
+
+08.11.2017 token refreshing on web app added
+
 07.11.2017 authentication and role handling on web app added
 
 04.11.2017 authorization local and jwt added, tests added and update, bugs fixed
