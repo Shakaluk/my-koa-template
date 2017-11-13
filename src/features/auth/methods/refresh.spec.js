@@ -2,6 +2,7 @@
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
+const Faker = require('faker');
 
 const refresh = require('./refresh');
 const passport = require('../passport');
@@ -19,6 +20,7 @@ describe('refresh method', function () {
 
         defaultUser = {
             id  : '595b6a53f7909c41f0e2897b',
+            name: Faker.name.firstName() + ' ' + Faker.name.lastName(),
             role: CONSTANTS.USER_ROLES.USER
         };
     });

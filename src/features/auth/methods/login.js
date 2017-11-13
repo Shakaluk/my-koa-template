@@ -39,14 +39,13 @@ const config = require('../../../../config');
  *     }
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://www.example.com/auth/login
+ *     curl -i http://www.example.com/api/auth/login
  *
  * @apiUse apiSuccessExample_login
  */
 
 async function loginUser (ctx, next) {
     const body = ctx.request.body;
-    let payload;
     let token;
 
     try {
@@ -74,14 +73,9 @@ async function loginUser (ctx, next) {
             return;
         }
 
-        payload = {
-            id  : user._id,
-            role: user.role
-        };
+        token = jwt.sign(user, config.jwt.secret, {expiresIn: config.jwt.expiresIn});
 
-        token = jwt.sign(payload, config.jwt.secret, {expiresIn: config.jwt.expiresIn});
-
-        ctx.body = {user, token};
+        ctx.body = {token};
     })(ctx, next);
 }
 

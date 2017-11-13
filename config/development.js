@@ -26,7 +26,22 @@ const defaultAdmin = {
     email: 'firstadmin@mail.com'
 };
 
+const facebookOptions = {
+    clientID     : '268098283614841',
+    clientSecret : '559c4a31781983a05ed0844f98197b4a',
+    callbackURL  : 'http://localhost:3000/api/auth/facebook/callback',
+    profileFields: ['first_name', 'last_name', 'email']
+};
+
+const googleOptions = {
+    clientID     : '51589288052-o12j96k0g6b90542s4q3alk3riojka37.apps.googleusercontent.com',
+    clientSecret : '35gcsIRs0qa1oEj-V2ER5MUv',
+    callbackURL  : 'http://localhost:3000/api/auth/google/callback',
+};
+
 module.exports = {
+    facebookOptions,
+    googleOptions,
     cryptoSecret,
     defaultAdmin,
     numWorkers,

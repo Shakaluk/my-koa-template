@@ -5,6 +5,8 @@ const passport = require('koa-passport');
 const LocalStrategy = require('passport-local');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
+const FacebookStrategy = require('passport-facebook').Strategy;
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 const config = require('../../../config');
 const User = require('../user/model');
@@ -60,7 +62,7 @@ const localStrategy = new LocalStrategy(localOptions, async function (email, pas
     }
 
     return done(null, {
-        _id : user._id,
+        id  : user._id,
         name: user.name,
         role: user.role
     });
@@ -74,8 +76,52 @@ const jwtStrategy = new JwtStrategy(jwtOptions, async function (payload, done) {
     }
 });
 
+const facebookStrategy = new FacebookStrategy(config.facebookOptions, async function (req, token, refreshToken, profile, done) {
+    let user;
+
+    try {
+        user = await User.getOne({email: profile.emails[0].value});
+    } catch (err) {
+        return done(err);
+    }
+
+    if (!user) {
+        return done(null, null, {message: 'Email does not exist'});
+    } else {
+        return done(null, {
+            _id : user._id,
+            name: user.name,
+            role: user.role
+        });
+    }
+});
+
+const googleStrategy = new GoogleStrategy(config.googleOptions, async function (token, refreshToken, profile, done) {
+    let user;
+
+    try {
+        user = await User.getOne({email: profile.emails[0].value});
+    } catch (err) {
+        return done(err);
+    }
+
+    if (!user) {
+        return done(null, null, {message: 'Email does not exist'});
+    } else {
+        return done(null, {
+            _id : user._id,
+            name: user.name,
+            role: user.role
+        });
+    }
+});
+
 passport.use(localStrategy);
 
 passport.use(jwtStrategy);
+
+passport.use(facebookStrategy);
+
+passport.use(googleStrategy);
 
 module.exports = passport;

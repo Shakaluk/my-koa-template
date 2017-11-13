@@ -32,7 +32,7 @@ const CONSTANTS = require('../../../../constants');
  *     }
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://www.example.com/auth/refresh
+ *     curl -i http://www.example.com/api/auth/refresh
  *
  * @apiUse apiSuccessExample_refresh_token
  */
@@ -87,6 +87,7 @@ async function refreshToken (ctx, next) {
 
         payload = {
             id  : userData._id,
+            name: userData.name,
             role: userData.role
         };
 
